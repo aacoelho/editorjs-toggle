@@ -1,9 +1,9 @@
 {
-  "name": "editorjs-editorjs-toggle",
-  "description": "editorjs-toggle Tool for Editor.js",
+  "name": "editorjs-toggle",
+  "description": "toggle Tool for Editor.js",
   "version": "1.0.0",
-  "main": "dist/editorjs-toggle.umd.js",
-  "module": "dist/editorjs-toggle.mjs",
+  "main": "dist/toggle.umd.js",
+  "module": "dist/toggle.mjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
@@ -12,6 +12,7 @@
     "@codexteam/icons": "^0.1.0",
     "@editorjs/editorjs": "^2.26.4",
     "@types/node": "^16.3.3",
+    "sass": "^1.92.1",
     "ts-loader": "^9.1.0",
     "typescript": "^4.2.4",
     "vite": "^3.1.0",

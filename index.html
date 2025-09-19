@@ -16,12 +16,12 @@
 
   <script type="module">
     import EditorJS from '@editorjs/editorjs';
-    import editorjs-toggle from './src/index.ts';
+    import toggle from './src/index.ts';
 
     const editor = new EditorJS({
       tools: {
-        editorjs-toggle: {
-          class: editorjs-toggle,
+        toggle: {
+          class: toggle,
           // inlineToolbar: ['marker', 'link'],
           // shortcut: 'CMD+SHIFT+H',
           // config: {},
@@ -31,7 +31,7 @@
       data: {
         blocks: [
           {
-            type: 'editorjs-toggle',
+            type: 'toggle',
             data: {},
           }
         ],

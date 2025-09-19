@@ -1,13 +1,13 @@
-# editorjs-toggle Tool for Editor.js
+# Toggle Tool for Editor.js
 
 ## Installation
 
-Use your package manager to install the package `editorjs-editorjs-toggle`.
+Use your package manager to install the package `editorjs-toggle`.
 
 ```
-npm install editorjs-editorjs-toggle
+npm install editorjs-toggle
 
-yarn add editorjs-editorjs-toggle
+yarn add editorjs-toggle
 ```
 
 ## Development

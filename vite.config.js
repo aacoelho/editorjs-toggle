@@ -11,9 +11,9 @@ export default {
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src', 'index.ts'),
-      name: 'editorjs-toggle',
+      name: 'toggle',
       formats: ['umd', 'es'],
-      fileName: 'editorjs-toggle'
+      fileName: 'toggle'
     },
   },
 

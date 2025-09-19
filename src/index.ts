@@ -1,7 +1,7 @@
 /**
  * Import styles library
  */
-import styles from './index.module.css';
+import './index.scss';
 
 /**
  * Import icons
@@ -11,13 +11,13 @@ import { IconStar } from '@codexteam/icons';
 /**
  * Import types
  */
-import { editorjs-toggleData, editorjs-toggleConfig } from './types';
+import { toggleData, toggleConfig } from './types';
 import { API, BlockAPI, BlockTool } from '@editorjs/editorjs';
 
 /**
- * editorjs-toggle Tool for Editor.js
+ * toggle Tool for Editor.js
  */
-export default class editorjs-toggle implements BlockTool {
+export default class toggle implements BlockTool {
   /**
    * Code API — public methods to work with Editor
    * 
@@ -40,12 +40,12 @@ export default class editorjs-toggle implements BlockTool {
   /**
    * Tool data for input and output
    */
-  private data: editorjs-toggleData;
+  private data: toggleData;
 
   /**
    * Configuration object that passed through the initial Editor configuration.
    */
-  private config: editorjs-toggleConfig;
+  private config: toggleConfig;
 
   /**
    * Tool's HTML nodes
@@ -57,7 +57,7 @@ export default class editorjs-toggle implements BlockTool {
    * 
    * @link https://editorjs.io/tools-api#class-constructor
    */
-  constructor({ data, config, api, block, readOnly }: { data: editorjs-toggleData, config: editorjs-toggleConfig, api: API, block: BlockAPI, readOnly: boolean }) {
+  constructor({ data, config, api, block, readOnly }: { data: toggleData, config: toggleConfig, api: API, block: BlockAPI, readOnly: boolean }) {
     this.data = data;
     this.config = config;
     this.api = api;
@@ -87,7 +87,7 @@ export default class editorjs-toggle implements BlockTool {
    */
   render() {
     this.nodes.wrapper = document.createElement('div');
-    this.nodes.wrapper.classList.add(styles['editorjs-toggle-tool']);
+    this.nodes.wrapper.classList.add('cdx-toggle');
 
     return this.nodes.wrapper;
   }
@@ -97,9 +97,9 @@ export default class editorjs-toggle implements BlockTool {
    * Required
    * @link https://editorjs.io/tools-api#save
    * 
-   * @returns {editorjs-toggleData} saved data
+   * @returns {toggleData} saved data
    */
-  save(): editorjs-toggleData {
+  save(): toggleData {
     return {};
   }
 
@@ -107,7 +107,7 @@ export default class editorjs-toggle implements BlockTool {
    * Validates Block data after saving
    * @link https://editorjs.io/tools-api#validate
    * 
-   * @param {editorjs-toggleData} savedData
+   * @param {toggleData} savedData
    * @returns {boolean} true if data is valid, otherwise false
    */ 
   // validate() {}
@@ -143,8 +143,8 @@ export default class editorjs-toggle implements BlockTool {
    * Specifies how to merge two similar Blocks
    * @link https://editorjs.io/tools-api#merge
    * 
-   * @param {editorjs-toggleData} data - data of second Block
-   * @returns {editorjs-toggleData} - merged data
+   * @param {toggleData} data - data of second Block
+   * @returns {toggleData} - merged data
    */
   // merge() {} 
 
@@ -200,7 +200,7 @@ export default class editorjs-toggle implements BlockTool {
    */
   static get toolbox() {
     return {
-      title: 'editorjs-toggle',
+      title: 'Toggle',
       icon: IconStar,
     };
   }
