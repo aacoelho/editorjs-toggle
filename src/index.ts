@@ -40,7 +40,7 @@ export default class toggle implements BlockTool {
   /**
    * Tool data for input and output
    */
-  private _data: toggleData;
+  private _data!: toggleData;
 
   /**
    * Configuration object that passed through the initial Editor configuration.
