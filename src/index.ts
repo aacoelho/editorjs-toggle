@@ -23,7 +23,7 @@ export default class toggle implements BlockTool {
    * 
    * @link https://editorjs.io/api
    */
-   private readonly api: API;
+  private readonly api: API;
 
   /**
    * Block API — methods and properties to work with Block instance
@@ -40,7 +40,7 @@ export default class toggle implements BlockTool {
   /**
    * Tool data for input and output
    */
-  private data: toggleData;
+  private _data: toggleData;
 
   /**
    * Configuration object that passed through the initial Editor configuration.
@@ -51,6 +51,16 @@ export default class toggle implements BlockTool {
    * Tool's HTML nodes
    */
   private nodes: {[key: string]: HTMLElement|null};
+
+  /**
+   * Title input placeholder
+   */
+  private titlePlaceholder: string;
+
+  /**
+   * Description input placeholder
+   */
+  private textPlaceholder: string;
 
   /**
    * Class constructor
@@ -64,12 +74,49 @@ export default class toggle implements BlockTool {
     this.block = block;
     this.readOnly = readOnly;
 
+    this.titlePlaceholder = config.titlePlaceholder || 'Add title';
+    this.textPlaceholder = config.textPlaceholder || 'Add text';
+
     /**
      * Declare Tool's nodes
      */
     this.nodes = {
       wrapper: null,
+      title: null,
+      text: null,
     };
+  }
+
+  /**
+   * Class names
+   *
+   * @returns {Object}
+   */
+  get classes() {
+    return {
+      wrapper: 'cdx-toggle',
+      title: 'cdx-toggle__title',
+      text: 'cdx-toggle__text',
+    };
+  }
+
+  /**
+   * Data setter
+   * @param {toggleData} data - Raw data to store (Editor.js handles sanitization automatically)
+   */
+  set data(data: toggleData) {
+    this._data = Object.assign({}, {
+      title: data.title || "",
+      text: data.text || "",
+    });
+  }
+  
+  /**
+   * Data getter
+   * @returns {toggleData} Current tool data
+   */
+  get data(): toggleData {
+    return this._data;
   }
 
   /**
@@ -86,8 +133,25 @@ export default class toggle implements BlockTool {
    * @returns {HTMLElement}
    */
   render() {
-    this.nodes.wrapper = document.createElement('div');
-    this.nodes.wrapper.classList.add('cdx-toggle');
+    this.nodes.wrapper = this.make('div', this.classes.wrapper);
+
+    // Title input
+    this.nodes.title = this.make('div', this.classes.title, {
+      contentEditable: !this.readOnly ? 'true' : 'false',
+      innerHTML: this._data.title || '',
+    });
+    this.nodes.title.dataset.placeholder = this.titlePlaceholder;
+
+    this.nodes.wrapper.appendChild(this.nodes.title);
+
+    // Description input
+    this.nodes.text = this.make('div', this.classes.text, {
+      contentEditable: !this.readOnly ? 'true' : 'false',
+      innerHTML: this._data.text || '',
+    });
+    this.nodes.text.dataset.placeholder = this.textPlaceholder;
+
+    this.nodes.wrapper.appendChild(this.nodes.text);
 
     return this.nodes.wrapper;
   }
@@ -100,7 +164,10 @@ export default class toggle implements BlockTool {
    * @returns {toggleData} saved data
    */
   save(): toggleData {
-    return {};
+    return {
+      title: this.getCleanContent(this.nodes.title?.innerHTML || ''),
+      text: this.getCleanContent(this.nodes.text?.innerHTML || ''),
+    };
   }
 
   /**
@@ -110,7 +177,10 @@ export default class toggle implements BlockTool {
    * @param {toggleData} savedData
    * @returns {boolean} true if data is valid, otherwise false
    */ 
-  // validate() {}
+  validate(savedData: toggleData): boolean {
+    // Require at least a value or title to be present
+    return !!(savedData.title?.trim() || savedData.text?.trim());
+  }
 
   /**
    * 
@@ -187,9 +257,12 @@ export default class toggle implements BlockTool {
    * 
    * @returns {{[string]: boolean|object}} - Sanitizer rules
    */
-  // static get sanitize() {
-  //   return {};
-  // } 
+  static get sanitize() {
+    return {
+      title: true,      // Allow all inline formatting in titles
+      text: true, // Allow all inline formatting in texts
+    };
+  } 
 
   /**
    * Describe an icon and title here
@@ -290,4 +363,51 @@ export default class toggle implements BlockTool {
    * @param {MoveEvent} event 
    */
   // moved(event) {}
+
+
+  /**
+   * HELPER METHODS
+   */
+
+  /**
+   * Clean HTML content and return empty string for "empty" content
+   * 
+   * @param {string} content - HTML content to clean
+   * @returns {string} - Cleaned content or empty string
+   */
+  private getCleanContent(content: string): string {
+    if (!content) return '';
+    
+    // Remove common "empty" HTML patterns that browsers insert
+    const cleanedContent = content
+      .replace(/^<br\/?>$/i, '') // Single <br> or <br/>
+      .replace(/^<p><br\/?>?<\/p>$/i, '') // <p><br></p> or <p><br/></p>
+      .replace(/^<div><br\/?>?<\/div>$/i, '') // <div><br></div> or <div><br/></div>
+      .replace(/^\s*$/, ''); // Whitespace only
+    
+    return cleanedContent;
+  }
+
+  /**
+   * Helper for creating DOM elements
+   * @param {string} tagName - Element tag name
+   * @param {string|string[]} classNames - Class names to add
+   * @param {object} attributes - Attributes to set
+   * @returns {HTMLElement}
+   */
+  private make(tagName: string, classNames: string | string[] = [], attributes: Record<string, any> = {}): HTMLElement {
+    const el = document.createElement(tagName);
+
+    if (Array.isArray(classNames)) {
+      el.classList.add(...classNames);
+    } else if (classNames) {
+      el.classList.add(classNames);
+    }
+
+    for (const attrName in attributes) {
+      (el as any)[attrName] = attributes[attrName];
+    }
+
+    return el;
+  }
 };
