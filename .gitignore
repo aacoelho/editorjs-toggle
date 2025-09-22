@@ -73,7 +73,6 @@ jspm_packages/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
@@ -103,10 +102,6 @@ public
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# Build output
-dist/
-build/
 
 # Editor directories and files
 .vscode/
