@@ -177,7 +177,7 @@ export default class toggle implements BlockTool {
    * @returns {boolean} true if data is valid, otherwise false
    */ 
   validate(savedData: toggleData): boolean {
-    // Require at least a value or title to be present
+    // Require at least a title or text to be present
     return !!(savedData.title?.trim() || savedData.text?.trim());
   }
 
@@ -320,9 +320,9 @@ export default class toggle implements BlockTool {
    * 
    * @returns {boolean}
    */ 
-  // static get enableLineBreaks() {
-  //   return true;
-  // }
+  static get enableLineBreaks() {
+    return true;
+  }
 
   /**
    * This flag tells core that current tool supports the read-only mode
@@ -330,9 +330,9 @@ export default class toggle implements BlockTool {
    * 
    * @returns {boolean}
    */
-  // static get isReadOnlySupported() {
-  //   return true;
-  // } 
+  static get isReadOnlySupported() {
+    return true;
+  } 
 
   /**
    * LIFE CYCLE HOOKS
