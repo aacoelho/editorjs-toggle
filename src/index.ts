@@ -6,7 +6,6 @@ import './index.scss';
 /**
  * Import icons
  */
-import { IconStar } from '@codexteam/icons';
 
 /**
  * Import types
@@ -74,8 +73,8 @@ export default class toggle implements BlockTool {
     this.block = block;
     this.readOnly = readOnly;
 
-    this.titlePlaceholder = config.titlePlaceholder || 'Add title';
-    this.textPlaceholder = config.textPlaceholder || 'Add text';
+    this.titlePlaceholder = config.titlePlaceholder || 'Add title or question';
+    this.textPlaceholder = config.textPlaceholder || 'Add text or answer';
 
     /**
      * Declare Tool's nodes
@@ -274,7 +273,7 @@ export default class toggle implements BlockTool {
   static get toolbox() {
     return {
       title: 'Toggle',
-      icon: IconStar,
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>',
     };
   }
 

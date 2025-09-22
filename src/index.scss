@@ -1,7 +1,41 @@
 .cdx-toggle {
   margin: 1em auto;
-  height: 100px;
+  color: black;
 
-  background-color: #eee;
-  border-radius: 8px;
+  &::before {
+    content: "";
+    position: absolute;
+    background-image: url("assets/images/caret-right-fill.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    animation: rotate 0.3s ease-in-out 0s;
+    animation-fill-mode: forwards;
+  }
+
+  .cdx-toggle__title {
+    font-size: 20px;
+    margin-bottom: 12px;
+    margin-left: 30px;
+    outline: none !important;
+  }
+
+  .cdx-toggle__text {
+    font-size: 16px;
+    color: #333;
+    outline: none !important;
+    margin-left: 30px;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
 }
